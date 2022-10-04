@@ -10,7 +10,7 @@ module.exports = router.post(
         res
           .status(200)
           .send({ lid: "opened", temperature: "67", vacuum: "ok" });
-      }, 5000);
+      }, 3000);
     } catch (err) {
       next(err);
     }
