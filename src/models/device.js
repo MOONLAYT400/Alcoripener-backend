@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define(
-    "User",
+  const Device = sequelize.define(
+    "Device",
     {
       id: {
         type: DataTypes.UUID,
@@ -8,16 +8,18 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      login: {
-        type: DataTypes.STRING,
+      deviceRef: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      deviceSettings: {
+        type: DataTypes.TEXT,
       },
-      email: {
-        type: DataTypes.STRING,
+      deviceTests: {
+        type: DataTypes.TEXT,
+      },
+      userId: {
+        type: DataTypes.UUID,
         allowNull: false,
       },
       created_at: {
@@ -32,13 +34,16 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       timestamps: false,
-      tableName: "users",
+      tableName: "devices",
     }
   );
-  User.associate = (models) => {
-    User.hasMany(models.Device, {
-      onDelete: "CASCADE",
+  Device.associate = (models) => {
+    Device.belongsTo(models.User, {
+      foreignKey: {
+        type: DataTypes.UUID,
+        field: "id",
+      },
     });
   };
-  return User;
+  return Device;
 };

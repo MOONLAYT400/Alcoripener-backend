@@ -22,6 +22,7 @@ module.exports = router.post(
       const user = await db.User.findOne({
         where: { login: body.login },
       });
+
       if (!user) {
         throw new Error(AUTH_ERRORS.USER_NOT_FOUND);
       }

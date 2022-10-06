@@ -4,4 +4,7 @@ module.exports = {
     WRONG_PASSWORD: "Неправильный пароль",
     WRONG_TOKEN: "Неверный токен",
   },
+  DEVICE_ERRORS: {
+    ERROR: "Ошибка",
+  },
 };

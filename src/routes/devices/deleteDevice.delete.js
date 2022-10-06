@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-module.exports = router.post(
-  "/devices/device-tests/:ref",
+module.exports = router.delete(
+  "/devices/device-delete/:ref",
   async (req, res, next) => {
     try {
       console.log(req.params);

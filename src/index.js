@@ -4,7 +4,7 @@ const recursive = require("recursive-readdir-sync");
 const app = express();
 
 const { PORT } = require("../src/config");
-const { auth } = require("./middlewares/auth");
+const auth = require("./middlewares/auth");
 
 app.use(cors());
 app.use(express.json());

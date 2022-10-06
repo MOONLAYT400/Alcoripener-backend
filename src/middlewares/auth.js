@@ -1,8 +1,9 @@
 const { verifyAccessToken } = require("../services/JWTCreator");
 const db = require("../models/index");
+const { AUTH_ERRORS } = require("../constants/errors");
 
-module.exports = {
-  auth: async (req, res, next) => {
+module.exports = async (req, res, next) => {
+  try {
     const token = req?.headers?.authorization?.replace("Bearer ", "");
 
     if (token) {
@@ -12,5 +13,7 @@ module.exports = {
     }
 
     next();
-  },
+  } catch (error) {
+    res.status(401).send(AUTH_ERRORS.WRONG_TOKEN);
+  }
 };
