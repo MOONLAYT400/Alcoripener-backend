@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../models/index");
-const axios = require("axios");
+const { models } = require("../../models/index");
 const { AUTH_ERRORS, DEVICE_ERRORS } = require("../../constants/errors");
-const { deviceData } = require("../../mockData/mockDevice");
 
 module.exports = router.get("/devices/info", async (req, res, next) => {
   try {
@@ -11,7 +9,7 @@ module.exports = router.get("/devices/info", async (req, res, next) => {
 
     const { user } = req;
 
-    const devices = await db.Device.findAll({ where: { userId: user.id } });
+    const devices = await models.Device.findAll({ where: { userId: user.id } });
 
     console.log(devices);
 

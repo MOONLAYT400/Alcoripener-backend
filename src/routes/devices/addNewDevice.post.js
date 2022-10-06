@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../models/index");
+const { models } = require("../../models/index");
 const { body, validationResult } = require("express-validator");
 const { AUTH_ERRORS, DEVICE_ERRORS } = require("../../constants/errors");
 const { DEVICE_SUCCESS } = require("../../constants/success");
 
-module.exports = router.get(
+module.exports = router.post(
   "/devices/add",
   // body("email").isEmail(),
   // body("login").exists({ checkNull: true, checkFalsy: true }),
@@ -20,7 +20,7 @@ module.exports = router.get(
 
       const { body } = req;
 
-      await db.Device.create({
+      await models.Device.create({
         deviceRef: +body.deviceRef,
         userId: req.user.id,
       });

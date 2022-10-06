@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../models/index");
+const { models } = require("../../models/index");
 const { body, validationResult } = require("express-validator");
 const { comparePassword } = require("../../services/Passswords");
 const { generateAccessToken } = require("../../services/JWTCreator");
@@ -19,7 +19,7 @@ module.exports = router.post(
 
       const { body } = req;
 
-      const user = await db.User.findOne({
+      const user = await models.User.findOne({
         where: { login: body.login },
       });
 

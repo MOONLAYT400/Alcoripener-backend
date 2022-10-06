@@ -1,47 +1,20 @@
-"use strict";
+const once = require("lodash/once");
+const { db, Sequelize } = require("../Services/Db");
+const Device = require("./device");
+const User = require("./user");
 
-const fs = require("fs");
-const path = require("path");
-const Sequelize = require("sequelize");
-const process = require("process");
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || "development";
-const config = require("../../db/config.json")[env];
-const db = {};
+const models = {
+  Device: Device.init(db, Sequelize),
+  User: User.init(db, Sequelize),
+};
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(
-    config.database,
-    config.username,
-    config.password,
-    config
-  );
+function initializeModelsHandler() {
+  Object.values(models)
+    .filter((model) => typeof model.associate === "function")
+    .forEach((model) => model.associate(models));
 }
 
-fs.readdirSync(__dirname)
-  .filter((file) => {
-    return (
-      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
-    );
-  })
-  .forEach((file) => {
-    const model = require(path.join(__dirname, file))(
-      sequelize,
-      Sequelize.DataTypes
-    );
-    db[model.name] = model;
-  });
-
-Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
-});
-
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
-module.exports = db;
+module.exports = {
+  initializeModels: once(initializeModelsHandler),
+  models,
+};

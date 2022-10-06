@@ -1,5 +1,5 @@
 const { verifyAccessToken } = require("../services/JWTCreator");
-const db = require("../models/index");
+const { models } = require("../models/index");
 const { AUTH_ERRORS } = require("../constants/errors");
 
 module.exports = async (req, res, next) => {
@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
 
     if (token) {
       const userId = verifyAccessToken(token).userId;
-      const user = await db.User.findByPk(userId);
+      const user = await models.User.findByPk(userId);
       req.user = user;
     }
 

@@ -1,44 +1,37 @@
-module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define(
-    "User",
-    {
-      id: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true,
+const BaseModel = require("./BaseModel");
+class User extends BaseModel {
+  static init(sequelize, DataTypes) {
+    return super.init(
+      {
+        id: {
+          type: DataTypes.UUID,
+          allowNull: false,
+          defaultValue: DataTypes.UUIDV4,
+          primaryKey: true,
+        },
+        login: {
+          type: DataTypes.STRING,
+          allowNull: false,
+        },
+        password: {
+          type: DataTypes.STRING,
+          allowNull: false,
+        },
+        email: {
+          type: DataTypes.STRING,
+          allowNull: false,
+        },
+        ...BaseModel.timestamps(DataTypes),
       },
-      login: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      created_at: {
-        type: DataTypes.DATE,
-      },
-      updated_at: {
-        type: DataTypes.DATE,
-      },
-      deleted_at: {
-        type: DataTypes.DATE,
-      },
-    },
-    {
-      timestamps: false,
-      tableName: "users",
-    }
-  );
-  User.associate = (models) => {
-    User.hasMany(models.Device, {
-      onDelete: "CASCADE",
-    });
-  };
-  return User;
-};
+      {
+        underscored: true,
+        timestamps: true,
+        tableName: "users",
+        sequelize,
+      }
+    );
+  }
+  static associate(models) {}
+}
+
+module.exports = User;

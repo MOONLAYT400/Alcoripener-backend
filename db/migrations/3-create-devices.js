@@ -3,13 +3,25 @@ const baseTypes = require("../baseTypes");
 module.exports = {
   async up(queryInterface, Sequelize) {
     const types = baseTypes(Sequelize);
-    queryInterface.createTable("devices", {
-      id: types.id,
-      deviceRef: { type: Sequelize.INTEGER, allowNull: false },
-      deviceSettings: { type: Sequelize.TEXT },
-      deviceTests: { type: Sequelize.TEXT },
-      userId: types.reference("users", "id"),
-      ...types.timestamps,
+    return queryInterface.sequelize.transaction(async (transaction) => {
+      await queryInterface.createTable(
+        "devices",
+        {
+          id: types.id,
+          device_ref: { type: Sequelize.INTEGER, allowNull: false },
+          device_settings: { type: Sequelize.TEXT },
+          device_tests: { type: Sequelize.TEXT },
+          user_id: types.reference("users", "id"),
+          ...types.timestamps,
+        },
+        { transaction }
+      );
+
+      await queryInterface.addIndex("devices", {
+        fields: ["device_ref"],
+        unique: true,
+        transaction,
+      });
     });
   },
 

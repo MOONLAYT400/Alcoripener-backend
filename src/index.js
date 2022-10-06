@@ -5,6 +5,9 @@ const app = express();
 
 const { PORT } = require("../src/config");
 const auth = require("./middlewares/auth");
+const { initializeModels } = require("./models");
+
+initializeModels();
 
 app.use(cors());
 app.use(express.json());

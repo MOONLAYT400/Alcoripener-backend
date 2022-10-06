@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../models/index");
+const { models } = require("../../models/index");
 const { body, validationResult } = require("express-validator");
 const { comparePassword } = require("../../services/Passswords");
 const { generateAccessToken } = require("../../services/JWTCreator");
@@ -10,7 +10,7 @@ module.exports = router.post("/auth/delete", async (req, res, next) => {
   try {
     const { body } = req;
 
-    await db.User.destroy({
+    await models.User.destroy({
       where: { id: body.id },
     });
 

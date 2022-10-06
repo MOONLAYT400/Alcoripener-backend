@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../models/index");
+const { models } = require("../../models/index");
 const { body, validationResult } = require("express-validator");
 const { hashPassword } = require("../../services/Passswords");
 const { generateAccessToken } = require("../../services/JWTCreator");
@@ -20,7 +20,7 @@ module.exports = router.post(
       const { body } = req;
       const hashedPassword = await hashPassword(body.password);
 
-      const user = await db.User.create({
+      const user = await models.User.create({
         login: body.login,
         password: hashedPassword,
         email: body.email,
