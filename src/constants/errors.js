@@ -6,5 +6,6 @@ module.exports = {
   },
   DEVICE_ERRORS: {
     ERROR: "Ошибка",
+    DEVICE_SETTINGS_ERROR: "Ошибка обновления настроек",
   },
 };

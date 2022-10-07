@@ -1,15 +1,36 @@
 const express = require("express");
 const router = express.Router();
+const { models } = require("../../models/index");
+const { AUTH_ERRORS, DEVICE_ERRORS } = require("../../constants/errors");
+const { DEVICE_SUCCESS } = require("../../constants/success");
 
-module.exports = router.post(
-  "/devices/device-change-settings",
+module.exports = router.patch(
+  "/devices/change-settings/:ref",
   async (req, res, next) => {
     try {
-      console.log(req.body);
+      if (!req.user) throw new Error(401);
 
-      res.status(200).send({ asd: "asdasd" });
+      const { body, user } = req;
+      const { ref } = req.params;
+
+      const deviceSettings = JSON.stringify(body);
+
+      await models.Device.update(
+        {
+          deviceSettings: deviceSettings,
+        },
+        {
+          where: { deviceRef: +ref, userId: user.id },
+        }
+      );
+
+      res.status(200).send({ message: DEVICE_SUCCESS.DEVICE_SETTINGS_UPDATED });
     } catch (err) {
-      res.status(400).send({ message: "error" });
+      if (err.message === "401") {
+        res.status(401).send({ message: AUTH_ERRORS.WRONG_TOKEN });
+      } else {
+        res.status(400).send({ message: DEVICE_ERRORS.DEVICE_SETTINGS_ERROR });
+      }
     }
   }
 );

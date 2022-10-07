@@ -9,7 +9,7 @@ module.exports = router.patch("/devices/tests/:ref", async (req, res, next) => {
     const { body } = req;
     const { ref } = req.params;
 
-    const device = await models.Device.update(
+    await models.Device.update(
       {
         deviceTests: body.testResults,
       },
@@ -17,8 +17,6 @@ module.exports = router.patch("/devices/tests/:ref", async (req, res, next) => {
         where: { deviceRef: +ref },
       }
     );
-
-    console.log(device);
 
     res.status(200).send({ message: DEVICE_SUCCESS.TEST_RESULTS_SET });
   } catch (err) {

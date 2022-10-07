@@ -4,7 +4,7 @@ const router = express.Router();
 
 module.exports = router.get("/devices/tests/:ref", async (req, res, next) => {
   try {
-    console.log(req.params);
+    if (!req.user) throw new Error(401);
 
     const { user } = req;
     const { ref } = req.params;
@@ -23,6 +23,10 @@ module.exports = router.get("/devices/tests/:ref", async (req, res, next) => {
 
     res.status(200).send(testsResult);
   } catch (err) {
-    next(err);
+    if (err.message === "401") {
+      res.status(401).send({ message: AUTH_ERRORS.WRONG_TOKEN });
+    } else {
+      res.status(400).send({ message: DEVICE_ERRORS.ERROR });
+    }
   }
 });
