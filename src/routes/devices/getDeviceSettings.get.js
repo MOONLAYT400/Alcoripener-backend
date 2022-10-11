@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { models } = require("../../models/index");
-const { AUTH_ERRORS, DEVICE_ERRORS } = require("../../constants/errors");
-const { DEVICE_SUCCESS } = require("../../constants/success");
+const { DEVICE_ERRORS } = require("../../constants/errors");
 
 module.exports = router.get(
   "/devices/change-settings/:ref",

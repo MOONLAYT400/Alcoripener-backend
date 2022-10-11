@@ -19,6 +19,8 @@ module.exports = router.post(
 
       const { body } = req;
 
+      console.log(body);
+
       const user = await models.User.findOne({
         where: { login: body.login },
       });

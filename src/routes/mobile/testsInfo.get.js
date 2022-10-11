@@ -1,6 +1,7 @@
 const express = require("express");
 const { models } = require("../../models/index");
 const router = express.Router();
+const { AUTH_ERRORS, DEVICE_ERRORS } = require("../../constants/errors");
 
 module.exports = router.get("/devices/tests/:ref", async (req, res, next) => {
   try {
@@ -12,6 +13,8 @@ module.exports = router.get("/devices/tests/:ref", async (req, res, next) => {
     const device = await models.Device.findOne({
       where: { deviceRef: +ref, userId: user.id },
     });
+
+    console.log(device);
 
     const parsedTestResult = JSON.parse(device.deviceTests);
 

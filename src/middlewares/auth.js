@@ -5,7 +5,6 @@ const { AUTH_ERRORS } = require("../constants/errors");
 module.exports = async (req, res, next) => {
   try {
     const token = req?.headers?.authorization?.replace("Bearer ", "");
-
     if (token) {
       const userId = verifyAccessToken(token).userId;
       const user = await models.User.findByPk(userId);

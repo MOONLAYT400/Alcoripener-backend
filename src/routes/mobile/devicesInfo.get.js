@@ -8,14 +8,7 @@ module.exports = router.get("/devices/info", async (req, res, next) => {
     if (!req.user) throw new Error(401);
 
     const { user } = req;
-
     const devices = await models.Device.findAll({ where: { userId: user.id } });
-
-    console.log(devices);
-
-    Promise.all(devices.map((device) => device.deviceAddress)).then((res) =>
-      console.log(res)
-    );
 
     res.status(200).send({ deviceData: devices });
   } catch (err) {

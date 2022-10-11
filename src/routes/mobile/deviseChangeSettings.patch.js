@@ -13,7 +13,12 @@ module.exports = router.patch(
       const { body, user } = req;
       const { ref } = req.params;
 
+      console.log(body);
+      console.log(user);
+
       const deviceSettings = JSON.stringify(body);
+
+      console.log(deviceSettings);
 
       await models.Device.update(
         {
