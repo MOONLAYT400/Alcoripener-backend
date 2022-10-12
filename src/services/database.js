@@ -4,6 +4,12 @@ const sequelize = new Sequelize(DATABASE_URL, {
   logging: (text, time) => {
     console.log("%s %s\n", `SQL (${time}ms)`, text);
   },
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
 });
 
 module.exports = {
