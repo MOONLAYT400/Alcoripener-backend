@@ -24,6 +24,7 @@ module.exports = router.post(
         login: body.login,
         password: hashedPassword,
         email: body.email,
+        client: body.client,
       });
 
       const accessToken = generateAccessToken(user.id);

@@ -21,6 +21,10 @@ class User extends BaseModel {
           type: DataTypes.STRING,
           allowNull: false,
         },
+        client: {
+          type: DataTypes.STRING,
+          allowNull: false,
+        },
         ...BaseModel.timestamps(DataTypes),
       },
       {
