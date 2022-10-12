@@ -1,4 +1,4 @@
-const { Sequelize } = require("../services/db.js");
+const { Sequelize } = require("../services/database.js");
 
 class BaseModel extends Sequelize.Model {
   getTableName() {

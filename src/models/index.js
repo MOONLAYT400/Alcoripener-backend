@@ -1,5 +1,5 @@
 const once = require("lodash/once");
-const { db, Sequelize } = require("../services/db.js");
+const { db, Sequelize } = require("../services/database.js");
 const Device = require("./device");
 const User = require("./user");
 
