@@ -1,4 +1,4 @@
-const BaseModel = require("./BaseModel");
+const BaseModel = require("./baseModel");
 class User extends BaseModel {
   static init(sequelize, DataTypes) {
     return super.init(
