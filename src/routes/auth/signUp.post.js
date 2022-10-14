@@ -4,6 +4,7 @@ const { models } = require("../../models/index");
 const { body, validationResult } = require("express-validator");
 const { hashPassword } = require("../../services/Passswords");
 const { generateAccessToken } = require("../../services/JWTCreator");
+const { AUTH_ERRORS } = require("../../constants/errors");
 
 module.exports = router.post(
   "/auth/register",
@@ -20,18 +21,24 @@ module.exports = router.post(
       const { body } = req;
       const hashedPassword = await hashPassword(body.password);
 
-      const user = await models.User.create({
+      const existingUser = await models.User.findOne({
+        where: { email: body.email },
+      });
+
+      if (existingUser) throw new Error(AUTH_ERRORS.EMAIL_EXISTS);
+
+      const newUser = await models.User.create({
         login: body.login,
         password: hashedPassword,
         email: body.email,
         client: body.client,
       });
 
-      const accessToken = generateAccessToken(user.id);
+      const accessToken = generateAccessToken(newUser.id);
 
       res.status(200).send({ accessToken });
     } catch (err) {
-      next(err);
+      return res.status(400).send({ message: err.message });
     }
   }
 );
