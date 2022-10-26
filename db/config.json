@@ -17,14 +17,14 @@
     "username": "julbifkuetyodr",
     "password": "4a9e22b3ed7db46382dd71720170692a07a38d699862aebe7313d83492287469",
     "database": "ddlfk01uk7g9no",
-    
+
     "host": "ec2-176-34-234-47.eu-west-1.compute.amazonaws.com",
     "dialect": "postgres",
     "dialectOptions": {
       "ssl": {
         "require": true,
-          "rejectUnauthorized": false
+        "rejectUnauthorized": false
       }
-  }
+    }
   }
 }

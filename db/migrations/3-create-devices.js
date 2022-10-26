@@ -9,6 +9,11 @@ module.exports = {
         {
           id: types.id,
           device_ref: { type: Sequelize.INTEGER, allowNull: false },
+          device_name: { type: Sequelize.TEXT },
+          device_current: { type: Sequelize.TEXT },
+          device_wireless_settings: {
+            type: Sequelize.TEXT,
+          },
           device_settings: { type: Sequelize.TEXT },
           device_tests: { type: Sequelize.TEXT },
           user_id: types.reference("users", "id"),

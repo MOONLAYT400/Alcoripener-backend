@@ -19,10 +19,20 @@ module.exports = router.post(
       if (!req.user) throw new Error(401);
 
       const { body } = req;
-
+      console.log(body);
+      // TODO - delete hardcoded
       await models.Device.create({
         deviceRef: +body.deviceRef,
         userId: req.user.id,
+        deviceCurrent: body.deviceCurrent,
+        deviceName: body.deviceName,
+        deviceSettings: JSON.stringify({
+          GENERAL: [12, 12, 12, 12],
+          DAY: [12, 12, 12, 12],
+          NIGHT: [12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12],
+          ERR: [0, 12, 12, 12, 12],
+        }),
+        // deviceWirelessSettings: body.deviceWirelessSettings,
       });
 
       res.status(200).send({ message: DEVICE_SUCCESS.DEVICE_ADDED });

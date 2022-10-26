@@ -18,6 +18,8 @@ module.exports = router.post(
         return res.status(400).send({ errors: errors.array() });
       }
 
+      console.log("start");
+
       const { body } = req;
       const hashedPassword = await hashPassword(body.password);
 

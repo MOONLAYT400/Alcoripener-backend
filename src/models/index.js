@@ -2,8 +2,10 @@ const once = require("lodash/once");
 const { db, Sequelize } = require("../services/database.js");
 const Device = require("./device");
 const User = require("./user");
+const Recipe = require("./recipe");
 
 const models = {
+  Recipe: Recipe.init(db, Sequelize),
   Device: Device.init(db, Sequelize),
   User: User.init(db, Sequelize),
 };

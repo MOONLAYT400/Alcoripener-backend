@@ -1,5 +1,5 @@
 const BaseModel = require("./baseModel");
-class Device extends BaseModel {
+class Recipe extends BaseModel {
   static init(sequelize, DataTypes) {
     return super.init(
       {
@@ -9,41 +9,25 @@ class Device extends BaseModel {
           defaultValue: DataTypes.UUIDV4,
           primaryKey: true,
         },
-        deviceRef: {
+        recipeRef: {
           type: DataTypes.INTEGER,
           allowNull: false,
         },
-        deviceName: {
+        recipeName: {
           type: DataTypes.TEXT,
         },
-        deviceCurrent: {
+        recipeSettings: {
           type: DataTypes.TEXT,
-        },
-        deviceSettings: {
-          type: DataTypes.TEXT,
-        },
-        deviceWirelessSettings: {
-          type: DataTypes.TEXT,
-        },
-        deviceTests: {
-          type: DataTypes.TEXT,
-        },
-        userId: {
-          type: DataTypes.UUID,
-          allowNull: false,
         },
         ...BaseModel.timestamps(DataTypes),
       },
       {
         underscored: true,
         timestamps: true,
-        tableName: "devices",
+        tableName: "recipes",
         sequelize,
       }
     );
   }
-  static associate(models) {
-    this.belongsTo(models.User, { as: "user", foreignKey: "id" });
-  }
 }
-module.exports = Device;
+module.exports = Recipe;
