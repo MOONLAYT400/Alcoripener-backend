@@ -8,19 +8,19 @@ const { AUTH_ERRORS } = require("../../constants/errors");
 
 module.exports = router.post(
   "/auth/login",
-  body("login").exists({ checkNull: true, checkFalsy: true }),
+  body("email").isEmail(),
   body("password").exists({ checkNull: true, checkFalsy: true }),
   async (req, res, next) => {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res.status(400).send({ errors: errors.array() });
+        return res.status(400).send({ errors: errors.errors[0].param });
       }
 
       const { body } = req;
 
       const user = await models.User.findOne({
-        where: { login: body.login },
+        where: { email: body.email },
       });
 
       if (!user) {
@@ -39,6 +39,7 @@ module.exports = router.post(
       const accessToken = generateAccessToken(user.id);
       res.status(200).send({ accessToken });
     } catch (err) {
+      console.log(err);
       res.status(400).send({ message: err.message });
     }
   }

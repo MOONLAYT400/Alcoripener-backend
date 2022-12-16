@@ -9,7 +9,6 @@ const { AUTH_ERRORS } = require("../../constants/errors");
 module.exports = router.post(
   "/auth/register",
   body("email").isEmail(),
-  body("login").exists({ checkNull: true, checkFalsy: true }),
   body("password").exists({ checkNull: true, checkFalsy: true }),
   async (req, res, next) => {
     try {
@@ -17,8 +16,6 @@ module.exports = router.post(
       if (!errors.isEmpty()) {
         return res.status(400).send({ errors: errors.array() });
       }
-
-      console.log("start");
 
       const { body } = req;
       const hashedPassword = await hashPassword(body.password);
@@ -30,7 +27,6 @@ module.exports = router.post(
       if (existingUser) throw new Error(AUTH_ERRORS.EMAIL_EXISTS);
 
       const newUser = await models.User.create({
-        login: body.login,
         password: hashedPassword,
         email: body.email,
         client: body.client,

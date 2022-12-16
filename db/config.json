@@ -1,24 +1,38 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "1234",
-    "database": "test",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "username": "moonlayt",
+    "password": "GeMdftlH6EyKf7lsfMTTiiiu0zaTOyuV",
+    "database": "alcoripener",
+
+    "host": "dpg-cedh9rirrk08fod2n9gg-a.oregon-postgres.render.com",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   },
   "test": {
-    "username": "postgres",
-    "password": "1234",
-    "database": "test",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "username": "moonlayt",
+    "password": "GeMdftlH6EyKf7lsfMTTiiiu0zaTOyuV",
+    "database": "alcoripener",
+
+    "host": "dpg-cedh9rirrk08fod2n9gg-a.oregon-postgres.render.com",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   },
   "production": {
-    "username": "julbifkuetyodr",
-    "password": "4a9e22b3ed7db46382dd71720170692a07a38d699862aebe7313d83492287469",
-    "database": "ddlfk01uk7g9no",
+    "username": "moonlayt",
+    "password": "GeMdftlH6EyKf7lsfMTTiiiu0zaTOyuV",
+    "database": "alcoripener",
 
-    "host": "ec2-176-34-234-47.eu-west-1.compute.amazonaws.com",
+    "host": "dpg-cedh9rirrk08fod2n9gg-a.oregon-postgres.render.com",
     "dialect": "postgres",
     "dialectOptions": {
       "ssl": {

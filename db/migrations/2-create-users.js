@@ -5,7 +5,6 @@ module.exports = {
     const types = baseTypes(Sequelize);
     queryInterface.createTable("users", {
       id: types.id,
-      login: { type: Sequelize.STRING, allowNull: false },
       password: { type: Sequelize.STRING, allowNull: false },
       email: { type: Sequelize.STRING, allowNull: false },
       client: { type: Sequelize.STRING, allowNull: false },
